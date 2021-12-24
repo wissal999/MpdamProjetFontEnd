@@ -1,7 +1,9 @@
 export class Projet {
     id!: number;
-    nomProjet!: string;
-    typeProjet!: string;
-    chefProjet!: number;
-    equipeProjet!: string;
+    nom!: string;
+    user!: UserId[];
+  
+}
+export class UserId{
+    id!: string;
 }

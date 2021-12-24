@@ -9,7 +9,7 @@
        Projets<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">Afficher tous les projets</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/gestionEquipes">Créer un projet</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect  routerLink="/gestionProjets" >Créer un projet</a>
         
         </div>
       </li>
@@ -18,7 +18,7 @@
         <a dropdownToggle  type="button" class="nav-link dropdown-toggle " >
          Personnes<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect  routerLink="/gestionProjets" >Afficher tous les équipes</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/gestionEquipes"  >Afficher tous les équipes</a>
           <a class="dropdown-item waves-light" mdbWavesEffect >Créer une équipe</a>
        
         </div>
@@ -38,7 +38,16 @@
           <i id="help-icon" class="bi bi-question-circle-fill"></i>
         </a>
       </li>
-    
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle  type="button" class="nav-link dropdown-toggle " >
+          <i class="bi bi-person-circle"></i><span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/gestionEquipes"  >Afficher tous les équipes</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect >Créer une équipe</a>
+       
+        </div>
+      </li>
+  
     </ul>
    
  

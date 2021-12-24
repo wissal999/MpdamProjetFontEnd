@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Projet } from '../projet';
+import { Projet, UserId } from '../projet';
 import { ConfirmDialogService } from '../Services/confirm-dialog.service';
 import { ProjetService } from '../Services/projet.service';
+import { TokenStorageService } from '../_services/token-storage.service';
+import { UserService } from '../_services/user.service';
 
 
 @Component({
@@ -12,100 +14,102 @@ import { ProjetService } from '../Services/projet.service';
   styleUrls: ['./gestion-projets.component.css']
 })
 export class GestionProjetsComponent implements OnInit {
-
-  formValue !:FormGroup;
-  projet:Projet=new Projet();
   projets:any;
-  Projet:Projet=new Projet();
-
-  showAdd!:boolean;
+  User: any;
+  formValue !:FormGroup;
+  showAdd:boolean=false;
+  showDiv:boolean=false;
   showUpdate !:boolean;
- 
- 
-  Books:any;
-  url="assets/Images/Livre1.jpg";
+  projet:Projet=new Projet();
+  userid:UserId=new UserId();
+  
 
  
 
-  constructor(private formBuilder:FormBuilder,private projetService:ProjetService, private router :Router,private DialogService:ConfirmDialogService) { }
 
+  constructor(private userService: UserService,private formBuilder:FormBuilder, private router :Router, private token: TokenStorageService) { }
 
   ngOnInit(): void {
-
-      
-  this.formValue=this.formBuilder.group({
-    nomProjet:[''],
-    typeProjet:[''],
-    chefProjet:[''],
-    equipeProjet:[''],
-  })
-  this.getProjects();
-  }
-
-  saveProject(){
-    this.projet.nomProjet=this.formValue.value.nomProjet;
-    this.projet.typeProjet=this.formValue.value.typeProjet;
-    this.projet.chefProjet=this.formValue.value.chefProjet;
-    this.projet.equipeProjet=this.formValue.value.equipeProjet;
-
-    this.projetService.addProjet(this.projet).subscribe(data=>{console.log(data)
-    alert("projet added !")
-    let ref=document.getElementById('cancel');
-    ref?.click();
-    this.getProjects();
-  });
-   
-  }
-  deleteProject(id:number){
-    this.DialogService.openConfirmDialog().afterClosed().subscribe(res=>{
-      if(res){
-        this.projetService.deleteProjet(id).subscribe(data=>{
-          this.getProjects();
-        })
-       
-      }
+    this.formValue=this.formBuilder.group({
+      nomProjet:[''],
+      typeProjet:[''],
+      chefProjet:[''],
+      equipeProjet:[''],
     })
-  
+    this.User = this.token.getUser();
+    this.userService.getProjets(this.User.id).subscribe(data=>{this.projets=data;console.log(data);})
+    
+    
   }
-  getProjects(){
-    this.projetService.getProjets().subscribe(data=>{
-      this.projets=data;
-    });
+  pass(id:string){
+    this.userService.passProject(id);
+
   }
-  
+  clickMethod(name: string, id: string) {
+    if(confirm("Are you sure to delete "+name)) {
+      this.userService.deleteProjet(id);
+      window.location.reload();
+    }
+  }
+  getFiles(event:any) {
+    console.log(event);
+}
   addProject(){
     this.formValue.reset();
+    this.showDiv=true;
     this.showAdd=true;
     this.showUpdate=false;
   }
+  cancel(){
+    this.showDiv=false;
+  }
+  getProjects(){
+    this.userService.getProjets(this.User.id).subscribe(data=>{
+      
+    });
+  }
   onEdit(projet:any){
+    
+    this.formValue.controls['nomProjet'].setValue(projet.nom);
+    this.formValue.controls['typeProjet'].setValue("developpement web");
     this.showAdd=false;
     this.showUpdate=true;
+    this.showDiv=true;
     this.projet.id=projet.id;
-    this.formValue.controls['nomProjet'].setValue(projet.nomProjet);
-    this.formValue.controls['typeProjet'].setValue(projet.typeProjet);
-    this.formValue.controls['chefProjet'].setValue(projet.chefProjet);
-    this.formValue.controls['equipeProjet'].setValue(projet.equipeProjet);
+
 
   }
-
-
   updateProject(){
-    this.projet.nomProjet=this.formValue.value.nomProjet;
-    this.projet.typeProjet=this.formValue.value.typeProjet;
-    this.projet.chefProjet=this.formValue.value.chefProjet;
-    this.projet.equipeProjet=this.formValue.value.equipeProjet;
-    this.projetService.updateProjet(this.projet.id,this.projet).subscribe(data=>{
-      alert("book updated");
+    this.userid.id=this.User.id;
+    this.projet.user=[this.userid];
+    this.projet.nom=this.formValue.value.nomProjet;
+    this.projet.nom=this.formValue.value.nomProjet;
+    this.userService.updateProjet(this.projet.id,this.projet).subscribe(data=>{
+      alert("projet updated");
       let ref=document.getElementById('cancel');
        ref?.click();
      this.formValue.reset();
 
       this.getProjects();
+      window.location.reload();
    
     });
   }
+  saveProject(){
+    this.userid.id=this.User.id;
+    this.projet.nom=this.formValue.value.nomProjet;
+    this.projet.user=[this.userid];
+    console.log(this.projet);
+    
+    this.userService.addProjet(this.projet).subscribe(data=>{console.log(data)
+    alert("projet added !")
+    let ref=document.getElementById('cancel');
+    ref?.click();
+    this.getProjects();
+    window.location.reload();
+  });
+   
 
-  
+}
   
 }

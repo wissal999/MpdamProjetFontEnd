@@ -16,6 +16,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GestionEquipesComponent } from './gestion-equipes/gestion-equipes.component';
+import { MenuComponent } from './menu/menu.component';
+import { BacklogComponent } from './backlog/backlog.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +35,12 @@ import { GestionEquipesComponent } from './gestion-equipes/gestion-equipes.compo
     GestionProjetsComponent,
     ConfirmDialogComponent,
     SearchInputComponent,
-    GestionEquipesComponent
+    GestionEquipesComponent,
+    MenuComponent,
+    BacklogComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,12 +58,13 @@ import { GestionEquipesComponent } from './gestion-equipes/gestion-equipes.compo
     MatDialogModule,
     MatCardModule,
     BrowserAnimationsModule,
+    DragDropModule
     
  
 
   ],
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
 
 })
