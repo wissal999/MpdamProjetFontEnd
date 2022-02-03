@@ -26,23 +26,23 @@ export class UserService {
   
   public getProjets(id: String):Observable<Projet[]>{
     
-    return this.http.get<Projet[]>('http://localhost:8082/projets/'+id);
+    return this.http.get<Projet[]>('http://localhost:3600/projets/'+id);
   }
 
 
   public getProjetbyid(id: String):Observable<Projet[]>{
     
-    return this.http.get<Projet[]>('http://localhost:8082/Projet/'+id);
+    return this.http.get<Projet[]>('http://localhost:3600/Projet/'+id);
   }
   public addProjet(projet:Projet):Observable<Projet>{
-    return this.http.post<Projet>('http://localhost:8082/projet',projet);
+    return this.http.post<Projet>('http://localhost:3600/projet',projet);
   }
   public deleteProjet(id:string){
-    return this.http.delete('http://localhost:8082/projet/'+id).subscribe((result) => {
+    return this.http.delete('http://localhost:3600/projet/'+id).subscribe((result) => {
       console.log ('Delete successful')});
   }
   public updateProjet(id:number,projet:Projet):Observable<Projet>{
-    return this.http.put<Projet>('http://localhost:8082/projet/'+id,projet)
+    return this.http.put<Projet>('http://localhost:3600/projet/'+id,projet)
   }
 
   getPublicContent(): Observable<any> {

@@ -106,7 +106,7 @@ export class GestionProjetsComponent implements OnInit {
     let ref=document.getElementById('cancel');
     ref?.click();
     this.getProjects();
-    window.location.reload();
+   // window.location.reload();
   });
    
 

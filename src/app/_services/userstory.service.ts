@@ -12,18 +12,18 @@ export class UserstoryService {
   constructor(private http: HttpClient) { }
 
   public addUserstory(userstory:Userstory):Observable<Userstory>{
-    return this.http.post<Userstory>('http://localhost:8082/userStory',userstory);
+    return this.http.post<Userstory>('http://localhost:3600/userStory',userstory);
 }
 
 public getUserstories(id:number):Observable<Userstory[]>{
-  return this.http.get<Userstory[]>('http://localhost:8082/userStorys/'+id);
+  return this.http.get<Userstory[]>('http://localhost:3600/userStorys/'+id);
 }
 
 public deleteUserstory(id:number):Observable<void>{
-  return this.http.delete<void>('http://localhost:8082/userStory/'+id);
+  return this.http.delete<void>('http://localhost:3600/userStory/'+id);
 }
 
 public updateProjet(id:number,userstory:Userstory):Observable<Userstory>{
-  return this.http.put<Userstory>('http://localhost:8082/userStory/'+id,userstory)
+  return this.http.put<Userstory>('http://localhost:3600/userStory/'+id,userstory)
 }
 }

@@ -2,7 +2,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { projetId, Userstory } from '../userstory';
+import { Projet } from '../projet';
+import {  Userstory } from '../userstory';
 import { UserstoryService } from '../_services/userstory.service';
 
 @Component({
@@ -17,11 +18,11 @@ export class BacklogComponent implements OnInit {
   userstories:any;
   id:any;
   projet:any;
-  ProjetId:projetId=new projetId();
+  projetId:Projet=new Projet();
   constructor(private route:ActivatedRoute,private formBuilder:FormBuilder,private userstoryService:UserstoryService) { }
 
   ngOnInit(): void {
-    this.id=this.route.snapshot.params['id'];
+    this.id=Number(this.route.snapshot.params['id']);
     console.log(this.getUserstoriesProject());
     this.formValue=this.formBuilder.group({
       userStory:['']
@@ -37,15 +38,21 @@ export class BacklogComponent implements OnInit {
   getUserstoriesProject(){
     this.userstoryService.getUserstories(this.id).subscribe(data=>{
       this.userstories=data;
+      console.log(data);
     });
   }
-  
+  clickMethod(name: string, id: number) {
+    if(confirm("Are you sure to delete "+name)) {
+      this.deleteUserstory(id);
+      window.location.reload();
+    }
+  }
 
   saveUserstory(){
   
-   this.ProjetId.id=this.id;
+   this.projetId.id=this.id;
     this.userstory.userStory=this.formValue.value.userStory;
-    this.userstory.projet=[this.ProjetId];
+    this.userstory.projet=this.projetId;
     console.log(this.userstory.projet)
     console.log(this.userstory)
     this.userstoryService.addUserstory(this.userstory).subscribe(data=>{console.log(data)

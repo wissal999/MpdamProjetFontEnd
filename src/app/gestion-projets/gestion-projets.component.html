@@ -8,16 +8,18 @@
           <th scope="col">Nom du projet </th>
           <th scope="col">Type </th>
           <th scope="col">Chef projet</th>
-          <th scope="col">Equipe du projet</th>
-          <th scope="col">Modifier</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody *ngFor="let projet of projets" >
         <tr>
-          <td><a href="/backlog" class="nav-link" (click)="pass(projet.id)" >{{projet.nom}}</a></td>
-      
-          <td class="td"><button type="button" class="btn btn-info btn-sm px-3"(click)="onEdit(projet)">
+          <td><a [routerLink]="['/backlog/'+projet.id]" class="nav-link" (click)="pass(projet.id)" >{{projet.nom}}</a></td>
+          <td>Devloppement</td>
+          <td>{{User.username}}</td>
+          <td>Equipe du projet</td>
+          <td class="td"><button type="button" class="btn btn-info btn-sm px-3"(click)="onEdit(projet)"data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="fa fa-pencil-square" ></i>
           </button></td>
           <td class="td"><button type="button" class="btn btn-danger btn-sm px-3"(click)="clickMethod(projet.nom,projet.id)">
@@ -31,7 +33,7 @@
     Créer un projet
   </button>
   <!-- Modal -->
-  <div  *ngIf="showDiv" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

@@ -1,10 +1,9 @@
+import { Projet } from "./projet";
+
 export class Userstory {
     id!: number;
     avancement!:string;
     userStory!:string;
-    projet!: projetId[];
+    projet!: Projet;
 
-}
-export class projetId{
-    id!:string;
 }

@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchInputComponent } from './search-input/search-input.component';
-import{FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card'; 
@@ -24,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { KanbanComponent } from './kanban/kanban.component';
 
 
 
@@ -41,6 +41,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    KanbanComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,6 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    FontAwesomeModule,
     NgbModule,
     MatDialogModule,
     MatCardModule,
