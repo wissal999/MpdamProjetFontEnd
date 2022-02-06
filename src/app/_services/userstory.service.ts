@@ -12,6 +12,7 @@ export class UserstoryService {
   constructor(private http: HttpClient) { }
 
   public addUserstory(userstory:Userstory):Observable<Userstory>{
+<<<<<<< HEAD
     return this.http.post<Userstory>('http://localhost:8082/userStory',userstory);
 }
 
@@ -25,5 +26,20 @@ public deleteUserstory(id:number):Observable<void>{
 
 public updateProjet(id:number,userstory:Userstory):Observable<Userstory>{
   return this.http.put<Userstory>('http://localhost:8082/userStory/'+id,userstory)
+=======
+    return this.http.post<Userstory>('http://localhost:8070/userStory',userstory);
+}
+
+public getUserstories(id:number):Observable<Userstory[]>{
+  return this.http.get<Userstory[]>('http://localhost:8070/userStorys/'+id);
+}
+
+public deleteUserstory(id:number):Observable<void>{
+  return this.http.delete<void>('http://localhost:8070/userStory/'+id);
+}
+
+public updateProjet(id:number,userstory:Userstory):Observable<Userstory>{
+  return this.http.put<Userstory>('http://localhost:8070/userStory/'+id,userstory)
+>>>>>>> e2e16fd (first commit)
 }
 }
